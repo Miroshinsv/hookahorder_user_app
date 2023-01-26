@@ -8,19 +8,11 @@ class PlaceView extends GetView<PlaceController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: Get.height / 2,
-                child: YandexMap(),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    return Obx(() {
+      return YandexMap(
+        mapObjects: controller.places.value,
+        onMapCreated: controller.initYaMapController,
+      );
+    });
   }
 }
