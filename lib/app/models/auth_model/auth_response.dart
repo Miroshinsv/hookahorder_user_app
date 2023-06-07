@@ -10,15 +10,14 @@ class AuthResponseModel with _$AuthResponseModel {
 
   const factory AuthResponseModel({
     required String type,
-    required String authToken,
+    required String accessToken,
     required String refreshToken,
   }) = _AuthResponseModel;
 
   factory AuthResponseModel.fromJson(Map<String, Object?> json) =>
       _$AuthResponseModelFromJson(json);
 
-  String get getAuthToken => authToken;
-
+  String get getAccessToken => accessToken;
   String get getRefreshToken => refreshToken;
   String get getTokenType => type;
 }

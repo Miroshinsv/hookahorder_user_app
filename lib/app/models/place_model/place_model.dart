@@ -9,6 +9,7 @@ part 'place_model.g.dart';
 class PlaceModel with _$PlaceModel {
   const factory PlaceModel({
     required int id,
+    required String name,
     String? startTime,
     String? endTime,
     String? logo,

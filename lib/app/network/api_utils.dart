@@ -9,7 +9,7 @@ class ApiUtils {
   static Dio getDio() {
     if (_dio == null) {
       _dio = Dio();
-      _dio!.options.connectTimeout = 18000;
+      _dio!.options.connectTimeout = const Duration(seconds: 10);
       _dio!.interceptors.add(ApiInterceptors());
     }
     return _dio!;
