@@ -418,19 +418,19 @@ AlertDialog registerDialog() {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        TextField(
-          controller: controller.nameController,
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            filled: true,
-            hintStyle: TextStyle(color: Colors.grey[800]),
-            hintText: "Введите имя",
-            fillColor: Colors.white70,
-          ),
-        ),
-        const Divider(),
+        // TextField(
+        //   controller: controller.nameController,
+        //   decoration: InputDecoration(
+        //     border: OutlineInputBorder(
+        //       borderRadius: BorderRadius.circular(10.0),
+        //     ),
+        //     filled: true,
+        //     hintStyle: TextStyle(color: Colors.grey[800]),
+        //     hintText: "Введите имя",
+        //     fillColor: Colors.white70,
+        //   ),
+        // ),
+        // const Divider(),
         TextField(
           controller: controller.phoneController,
           keyboardType: TextInputType.number,
@@ -462,20 +462,10 @@ AlertDialog registerDialog() {
           ),
         ),
         const Divider(),
-        Obx(
-          () => Visibility(
-            visible: controller.visiblyErr.value,
-            child: const Text(
-              "Пользователь уже существует",
-              style: TextStyle(color: Colors.red),
-            ),
-          ),
-        ),
-        const Divider(),
         SizedBox(
           width: double.infinity,
           child: TextButton(
-            onPressed: () {},
+            onPressed: controller.postRegistration,
             style: ButtonStyle(
               backgroundColor: const MaterialStatePropertyAll(
                 Color.fromRGBO(39, 129, 129, 1),
@@ -494,6 +484,16 @@ AlertDialog registerDialog() {
                   color: Colors.white,
                 ),
               ),
+            ),
+          ),
+        ),
+        const Divider(),
+        Obx(
+              () => Visibility(
+            visible: controller.visiblyErr.value,
+            child: const Text(
+              "Пользователь уже существует",
+              style: TextStyle(color: Colors.redAccent),
             ),
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:hookahorder_mobile/app/models/auth_model/auth_response.dart';
+import 'package:hookahorder_mobile/app/models/user_model/user_model.dart';
 import 'package:hookahorder_mobile/app/network/api_client.dart';
 import 'package:hookahorder_mobile/app/network/api_utils.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -17,10 +18,17 @@ class AuthorizeService extends GetxService {
   AuthResponseModel? get getCurrentAuthModel => _authModel;
 
   Future<AuthResponseModel> postAuthorize(String phone, String password) async {
-    final response =
-        await _apiClient.postLogin({"phone": phone, "password": password});
+    final response = await _apiClient.postLogin({"phone": phone, "password": password});
     _storageService.writeToStorage(_LOGIN_ENTITY_KEY, response);
     _authModel = response;
+    return response;
+  }
+
+  Future<UserModel> postRegistration({
+    required String phone,
+    required String password,
+  }) async {
+    final response = await _apiClient.postRegistration({"phone": phone, "password": password});
     return response;
   }
 

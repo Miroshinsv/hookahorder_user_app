@@ -26,6 +26,11 @@ abstract class ApiClient {
   // USER
   @GET('/user/get/{userId}')
   Future<UserModel> getUserById(@Path("userId") userId);
+
+  @POST('/user/create')
+  Future<UserModel> postRegistration(@Body() Map<String, dynamic> cred);
+
   @PUT('/user/update/{id}')
-  Future<UserModel> updateFCMToken(@Path("id") int userId, @Body() Map<String, dynamic> body);
+  Future<UserModel> updateFCMToken(
+      @Path("id") int userId, @Body() Map<String, dynamic> body);
 }

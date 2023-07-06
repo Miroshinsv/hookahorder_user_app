@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hookahorder_mobile/app/routes/route_config.dart';
 import 'package:hookahorder_mobile/app/ui/screen/profile_screen/profile_screen_controller.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ProfileScreen extends GetView<ProfileScreenController> {
   const ProfileScreen({super.key});
@@ -33,79 +34,55 @@ class ProfileScreen extends GetView<ProfileScreenController> {
                       ),
                       const Divider(),
                       Text("ID: ${controller.currenUser.value!.getId}"),
-                      const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Text("Имя"),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color.fromRGBO(39, 129, 129, 1),
-                                    spreadRadius: 3),
-                              ],
-                            ),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8.0, right: 8.0),
-                              child: Text(
-                                controller.currenUser.value!.getName ??
-                                    "Имя не указано",
-                                style: const TextStyle(),
-                              ),
-                            ),
+                      const SizedBox(height: 5,),
+                      TextFormField(
+                        initialValue: "+${controller.currenUser.value!.getPhone}",
+                        style: const TextStyle(color: Colors.grey),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [ MaskTextInputFormatter(mask: "+7##########")],
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(0.0),
+                          enabled: false,
+                          label: Text(
+                            "Телефон",
+                            style: TextStyle(color: Colors.grey),
                           ),
-                        ],
+                          filled: true,
+                          hintStyle: TextStyle(color: Colors.grey),
+                          fillColor: Colors.white70,
+                        ),
                       ),
-                      const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Text("Телефон"),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color.fromRGBO(39, 129, 129, 1),
-                                    spreadRadius: 3),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                              child: Text(
-                                controller.currenUser.value!.getPhone,
-                              ),
-                            ),
+                      const SizedBox(height: 5,),
+                      TextFormField(
+                        initialValue: controller.currenUser.value?.getName,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(0.0),
+                          label: const Text(
+                            "Имя",
+                            style: TextStyle(color: Colors.grey),
                           ),
-                        ],
+                          filled: true,
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          hintText: controller.currenUser.value?.getName ??
+                              "Введите имя",
+                          fillColor: Colors.white70,
+                        ),
                       ),
-                      const Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Text("Email"),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.white,
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color.fromRGBO(39, 129, 129, 1),
-                                    spreadRadius: 3),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 8.0,right: 8.0),
-                              child: Text(controller.currenUser.value!.getEmail ??
-                                  "Email не указан"),
-                            ),
+                      const SizedBox(height: 5,),
+                      TextFormField(
+                        initialValue: controller.currenUser.value?.getEmail,
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(0.0),
+                          label: const Text(
+                            "Email",
+                            style: TextStyle(color: Colors.grey),
                           ),
-                        ],
+                          filled: true,
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          hintText: controller.currenUser.value?.getName ??
+                              "Введите ваш email",
+                          fillColor: Colors.white70,
+                        ),
                       ),
                       const Divider(),
                       TextButton(

@@ -1,5 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -8,12 +8,9 @@ import 'package:hookahorder_mobile/app/services/geolocator_service.dart';
 import 'package:hookahorder_mobile/app/services/order_service.dart';
 import 'package:hookahorder_mobile/app/services/place_service.dart';
 import 'package:hookahorder_mobile/app/ui/screen/main_screen/wigets/modals.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MainScreenController extends GetxController {
-
-
   int currentPlaceId = 0;
   final RxBool visiblyErr = false.obs;
   final RxBool timeSelected = false.obs;
@@ -53,12 +50,27 @@ class MainScreenController extends GetxController {
     }
   }
 
+  Future<bool> postRegistration() async {
+    try {
+      await _authorizeService.postRegistration(phone: phoneController.text.substring(1), password: passwordController.text);
+      await _authorizeService.postAuthorize(phoneController.text.substring(1), passwordController.text);
+      Get.back();
+      return true;
+    } catch (e) {
+      controller.visiblyErr.value = true;
+      Future.delayed(const Duration(seconds: 3))
+          .then((value) => controller.visiblyErr.value = false);
+      return false;
+    }
+  }
+
   Future<void> postOrder() async {
     _orderService.postOrder(
       placeId: currentPlaceId,
       userId: await _authorizeService.getUserId(),
       time: selectedTime.value,
-      comment: "Вкус: $tabacoTasty\nКрепкость: $tabacoScore\nДополнительно:\n${commentController.text}",
+      comment:
+          "Вкус: $tabacoTasty\nКрепкость: $tabacoScore\nДополнительно:\n${commentController.text}",
     );
   }
 
