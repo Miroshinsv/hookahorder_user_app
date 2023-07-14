@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:hookahorder_mobile/app/models/order/order_model.dart';
 import 'package:hookahorder_mobile/app/services/auth_service.dart';
 import 'package:hookahorder_mobile/app/services/geolocator_service.dart';
 import 'package:hookahorder_mobile/app/services/order_service.dart';
@@ -43,7 +42,8 @@ class MainScreenController extends GetxController {
 
   Future<bool> postAuth() async {
     try {
-      await _authorizeService.postAuthorize(phoneController.text.substring(1), passwordController.text);
+      await _authorizeService.postAuthorize(
+          phoneController.text.substring(1), passwordController.text);
       return true;
     } catch (e) {
       return false;
@@ -52,8 +52,11 @@ class MainScreenController extends GetxController {
 
   Future<bool> postRegistration() async {
     try {
-      await _authorizeService.postRegistration(phone: phoneController.text.substring(1), password: passwordController.text);
-      await _authorizeService.postAuthorize(phoneController.text.substring(1), passwordController.text);
+      await _authorizeService.postRegistration(
+          phone: phoneController.text.substring(1),
+          password: passwordController.text);
+      await _authorizeService.postAuthorize(
+          phoneController.text.substring(1), passwordController.text);
       Get.back();
       return true;
     } catch (e) {
@@ -64,8 +67,8 @@ class MainScreenController extends GetxController {
     }
   }
 
-  Future<void> postOrder() async {
-    _orderService.postOrder(
+  Future<OrderModel> postOrder() async {
+    return _orderService.postOrder(
       placeId: currentPlaceId,
       userId: await _authorizeService.getUserId(),
       time: selectedTime.value,
@@ -78,10 +81,10 @@ class MainScreenController extends GetxController {
     var currentPosition = await _geolocationService.getLastKnowPosition();
     _controller.moveCamera(
       CameraUpdate.newCameraPosition(
-        const CameraPosition(
+        CameraPosition(
           target: Point(
-            latitude: 55.919522728806136,
-            longitude: 37.76273697330549,
+            latitude: currentPosition.latitude,
+            longitude: currentPosition.longitude,
           ),
         ),
       ),

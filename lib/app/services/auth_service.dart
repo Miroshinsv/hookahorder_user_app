@@ -49,7 +49,7 @@ class AuthorizeService extends GetxService {
       String? token = await FirebaseMessaging.instance.getToken();
       var userId = JwtDecoder.decode(_authModel!.getAccessToken)['userId'];
       if (!JwtDecoder.isExpired(_authModel!.getAccessToken)) {
-        await _apiClient.updateFCMToken(userId, {"fcm_token": token});
+        await _apiClient.updateUserData(userId, {"fcm_token": token});
       }
     }
     super.onInit();

@@ -11,6 +11,12 @@ class UserService extends GetxService {
   }
 
   Future<UserModel> updateFCMToken(int userId, String token) async {
-    return await _apiClient.updateFCMToken(userId, {'fcm_token': token});
+    return await _apiClient.updateUserData(userId, {'fcm_token': token});
+  }
+
+  Future<UserModel> updateUser(
+      int userId, String userFirstName, String email) async {
+    return await _apiClient
+        .updateUserData(userId, {'name': userFirstName, "email": email});
   }
 }

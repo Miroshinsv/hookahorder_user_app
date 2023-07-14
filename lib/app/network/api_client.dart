@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hookahorder_mobile/app/models/auth_model/auth_response.dart';
+import 'package:hookahorder_mobile/app/models/order/order_model.dart';
 import 'package:hookahorder_mobile/app/models/place_model/place_model.dart';
 import 'package:hookahorder_mobile/app/models/user_model/user_model.dart';
 import 'package:retrofit/retrofit.dart';
@@ -21,7 +22,10 @@ abstract class ApiClient {
 
   // ORDER
   @POST('/order/create/')
-  Future<void> postOrder(@Body() Map<String, dynamic> cred);
+  Future<OrderModel> postOrder(@Body() Map<String, dynamic> cred);
+
+  @GET('/order/get/my')
+  Future<List<OrderModel>> getMyOrders({@Query("status") String? status, @Query("count") int? count});
 
   // USER
   @GET('/user/get/{userId}')
@@ -31,6 +35,6 @@ abstract class ApiClient {
   Future<UserModel> postRegistration(@Body() Map<String, dynamic> cred);
 
   @PUT('/user/update/{id}')
-  Future<UserModel> updateFCMToken(
+  Future<UserModel> updateUserData(
       @Path("id") int userId, @Body() Map<String, dynamic> body);
 }

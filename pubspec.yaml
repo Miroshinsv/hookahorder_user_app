@@ -12,7 +12,7 @@ dependencies:
   cupertino_icons: ^1.0.5
 
   # Network
-  dio: ^5.1.1
+  dio: ^5.2.1+1
   retrofit: ^4.0.1
 
   # State & Storage
@@ -20,29 +20,30 @@ dependencies:
   get_storage: ^2.1.1
 
   # etc
-  freezed_annotation: ^2.2.0
-  json_annotation: ^4.8.0
+  json_annotation: ^4.8.1
   mask_text_input_formatter: ^2.4.0
   interval_time_picker: ^2.0.0+5
   jwt_decoder: ^2.0.1
+  flutter_carousel_widget: ^2.0.4
 
   # MAP
-  yandex_mapkit: ^3.2.0
+  yandex_mapkit: ^3.3.3
   geolocator: ^9.0.2
-  firebase_core: ^2.10.0
-  firebase_messaging: ^14.4.1
-  firebase_analytics: ^10.2.1
-  firebase_crashlytics: ^3.1.1
-  firebase_in_app_messaging: ^0.7.1+1
+  firebase_core: ^2.14.0
+  firebase_messaging: ^14.6.4
+  firebase_analytics: ^10.4.3
+  firebase_crashlytics: ^3.3.3
+  firebase_in_app_messaging: ^0.7.3+3
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
-  retrofit_generator: ^6.0.0+2
-  build_runner: ^2.3.3
-  freezed: ^2.3.2
-  json_serializable: ^6.6.1
+  flutter_lints: ^2.0.2
+  retrofit_generator: ^7.0.8
+  build_runner: ^2.4.6
+  freezed: ^2.3.5
+  json_serializable: ^6.7.1
   flutter_launcher_icons: ^0.13.1
 
 flutter_launcher_icons:
