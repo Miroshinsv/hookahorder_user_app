@@ -11,6 +11,7 @@ import 'storage_service.dart';
 class AuthorizeService extends GetxService {
   final ApiClient _apiClient = ApiUtils.getApiClient();
   final StorageService _storageService = Get.find<StorageService>();
+  static UserModel? _userModel;
   static AuthResponseModel? _authModel;
 
   static const _LOGIN_ENTITY_KEY = "login_entity";
@@ -18,9 +19,14 @@ class AuthorizeService extends GetxService {
   AuthResponseModel? get getCurrentAuthModel => _authModel;
 
   Future<AuthResponseModel> postAuthorize(String phone, String password) async {
-    final response = await _apiClient.postLogin({"phone": phone, "password": password});
+    final response =
+        await _apiClient.postLogin({"phone": phone, "password": password});
     _storageService.writeToStorage(_LOGIN_ENTITY_KEY, response);
     _authModel = response;
+    final resp = await FirebaseMessaging.instance.getToken();
+    if (resp != null) {
+      await _apiClient.updateUserData(_userModel!.getId, {'fcm_token': resp});
+    }
     return response;
   }
 
@@ -28,7 +34,9 @@ class AuthorizeService extends GetxService {
     required String phone,
     required String password,
   }) async {
-    final response = await _apiClient.postRegistration({"phone": phone, "password": password});
+    final response = await _apiClient
+        .postRegistration({"phone": phone, "password": password});
+    _userModel = response;
     return response;
   }
 

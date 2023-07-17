@@ -234,6 +234,37 @@ AlertDialog placeOrderDialog() {
                 }),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Количество людей:",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    value: controller.userCount.value,
+                    icon: const Icon(Icons.arrow_downward),
+                    dropdownColor: Colors.black38,
+                    style: const TextStyle(color: Colors.white),
+                    onChanged: (String? value) {
+                      controller.userCount.value = value!;
+                    },
+                    items: [
+                      "1-4",
+                      "4-6",
+                      "6-8",
+                      "8+",
+                    ].map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  );
+                }),
+              ],
+            ),
             SizedBox(
                 width: double.infinity,
                 child: TextField(
@@ -280,12 +311,14 @@ AlertDialog placeOrderDialog() {
                       ),
                     ),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "Подтвердить заказ",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: controller.timeSelected.value
+                            ? Colors.white
+                            : Colors.grey,
                       ),
                     ),
                   ),
@@ -489,7 +522,7 @@ AlertDialog registerDialog() {
         ),
         const Divider(),
         Obx(
-              () => Visibility(
+          () => Visibility(
             visible: controller.visiblyErr.value,
             child: const Text(
               "Пользователь уже существует",

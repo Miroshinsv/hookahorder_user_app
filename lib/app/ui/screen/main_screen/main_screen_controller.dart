@@ -23,11 +23,13 @@ class MainScreenController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController commentController = TextEditingController();
+  final TextEditingController userCounterController = TextEditingController();
   RxString selectedTime = "Выберите время".obs;
 
   // Крепкость табака
   RxString tabacoScore = "Легкий".obs;
   RxString tabacoTasty = "Цитрус".obs;
+  RxString userCount = "1-4".obs;
 
   Future<void> initYaController(YandexMapController controller) async {
     phoneController.text = "+7";
@@ -73,7 +75,7 @@ class MainScreenController extends GetxController {
       userId: await _authorizeService.getUserId(),
       time: selectedTime.value,
       comment:
-          "Вкус: $tabacoTasty\nКрепкость: $tabacoScore\nДополнительно:\n${commentController.text}",
+          "Вкус: $tabacoTasty\nКрепкость: $tabacoScore\nДополнительно:\n${commentController.text}\nКоличество людей:$userCount",
     );
   }
 
